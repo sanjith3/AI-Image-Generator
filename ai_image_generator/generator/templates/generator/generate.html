@@ -1,0 +1,35 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Generation</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Generate an Image</h1>
+        <form method="POST" action="{% url 'generate' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="prompt">Enter a prompt for the image:</label>
+            <input type="text" id="prompt" name="prompt" placeholder="e.g., A sunset over the mountains" required>
+
+            {% if error %}
+                <div class="error">{{ error }}</div>
+            {% endif %}
+
+            <button type="submit">Generate Image</button>
+            </form>
+
+            <a href="{% url 'history' %}"><button>View History</button></a>
+
+
+    </div>
+
+
+<script src="{% static 'js/script.js' %}"></script>
+
+</body>
+</html>

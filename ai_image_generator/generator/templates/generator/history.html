@@ -1,0 +1,40 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image History</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Generated Image History</h1>
+
+        {% if history %}
+            <div class="scroll-container">
+                <button class="scroll-btn left">&lt;</button>
+                <div class="image-grid">
+                    {% for image in history %}
+                        <div class="image-card">
+                            <img src="{{ image.image.url }}" alt="Generated Image">
+                            <p class="prompt-text">Prompt: "{{ image.prompt }}"</p>
+                            <a href="{% url 'download_image' image.id %}" class="download-btn">Download</a>
+                        </div>
+                    {% endfor %}
+                </div>
+                <button class="scroll-btn right">&gt;</button>
+            </div>
+        {% else %}
+            <p class="no-history">No images have been generated yet.</p>
+        {% endif %}
+
+        <a href="{% url 'generate' %}">
+            <button>Generate Another Image</button>
+        </a>
+    </div>
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

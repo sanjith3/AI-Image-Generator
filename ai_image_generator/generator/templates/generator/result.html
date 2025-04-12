@@ -1,0 +1,44 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generated Image</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Your Generated Image</h1>
+
+        <!-- Display Generated Image -->
+        <img src="{{ image.image.url }}" alt="Generated Image" style="max-width: 100%; height: auto;">
+        <p>Prompt: "{{ image.prompt }}"</p>
+
+        <!-- Download button -->
+        <a href="{% url 'download_image' image.id %}" download>
+            <button>Download Image</button>
+        </a>
+
+        <!-- View History button -->
+        <a href="{% url 'history' %}">
+            <button>View History</button>
+        </a>
+
+        <!-- Regenerate Image button -->
+        <form method="POST" action="{% url 'generate' %}" style="display: inline;">
+            {% csrf_token %}
+            <input type="hidden" name="prompt" value="{{ image.prompt }}">
+            <button type="submit">Regenerate</button>
+        </form>
+
+        <!-- Generate Another Image button -->
+        <a href="{% url 'generate' %}">
+            <button style="margin-top: 20px;">Generate Another Image</button>
+        </a>
+    </div>
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
